@@ -47,11 +47,11 @@ screwHoleOuterRadius=6.45/2+3;
 buttonOuterWidth=44.97;
 buttonExtra=7;
 buttonHoleY=buttonOuterWidth+(buttonExtra*2);
-buttonHoleZ=20;
+buttonHoleZ=25;
 
 // Camera
 cameraWidth=21.51;
-cameraHeight=25-5;
+cameraHeight=25;
 cameraStartX=boardStartX+92.2;
 cameraStartZ=pcbBottomZ;
 
@@ -75,10 +75,14 @@ lidMountY=15;
 lidMountZ=10;
 lidTolerance=-0.1;
 
+// Mid mounts
+midMountMiddleZ=pcbBottomZ+cameraHeight;
+midMountHeightZ=15+cameraHeight+pcbBottomZ;
+
 difference() {
     union() {
         // Top Section
-        union() {
+        *union() {
             translate([wallThickness+lidTolerance,wallThickness+lidTolerance,externalZ-wallThickness])
                 cube([externalX-wallThickness*2,externalY-wallThickness*2,wallThickness]);
         };
@@ -233,7 +237,6 @@ difference() {
             boltHole(screwSize,length=wallThickness+screwHeight+0.002);
         }
             
-        
         // For Side A
         *translate([externalX/2,-0.001,-0.001])
             cube([externalX/2+5,externalY+5,externalZ+5]);
@@ -242,16 +245,8 @@ difference() {
         *translate([-0,001,-0.001,-0.001])
             cube([externalX/2+5,externalY+5,externalZ+5]);
     };
+    
+    *translate([-0.001,-0.001,ioMainStartZ+ioMainHeight]) 
+        //mirror([0,0,1])  // Comment this out to enable top
+        cube([5000,5000,5000]);
 };
-
-
-
-
-
-
-
-
-
-
-
-
